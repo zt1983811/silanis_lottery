@@ -1,0 +1,41 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+targetCompatibility = 1.8
+sourceCompatibility = 1.8
+
+version = '1.0'
+mainClassName = 'lottery.Application'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4' 
+}
+
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Silanis Lottery',
+                   'Implementation-Version': version,
+                   'Main-Class': mainClassName
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}
+
+test {
+    systemProperties 'property': 'value'
+}
+
+task showMeCache << {  
+    configurations.compile.each { println it }
+}

@@ -16,4 +16,4 @@ script:
     - ./gradlew test
 
 after_success:
-    - coveralls
+    - ./gradlew coveralls

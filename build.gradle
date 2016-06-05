@@ -9,13 +9,20 @@ plugins {
     id 'java'
     id 'eclipse'
     id 'application'
-    id 'net.saliman.cobertura' version '2.2.5'
+//    id 'net.saliman.cobertura' version '2.2.5'
     id 'com.github.kt3k.coveralls' version '2.6.3'
     id 'com.jfrog.bintray' version '0.5'
+    id 'jacoco'
 }
-apply from: 'gradle/maven-and-signing.gradle'
 
-cobertura.coverageFormats = ['html', 'xml']
+// cobertura.coverageFormats = ['html', 'xml']
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
+}
 
 targetCompatibility = 1.8
 sourceCompatibility = 1.8

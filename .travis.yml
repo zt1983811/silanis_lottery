@@ -14,10 +14,8 @@ jdk:
     - oraclejdk8
 
 script:
-    #    - ./gradlew cobertura coveralls
     - ./gradlew assemble 
     - ./gradlew test
 
 after_success:
-#    - ./gradlew cobertura coveralls
-     - ./gradlew jacocoTestReport coveralls
+    - ./gradlew jacocoTestReport coveralls

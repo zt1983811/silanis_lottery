@@ -14,3 +14,6 @@ script:
     #    - ./gradlew cobertura coveralls
     - ./gradlew assemble 
     - ./gradlew test
+
+after_success:
+    - coveralls

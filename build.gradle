@@ -53,3 +53,6 @@ test {
 task showMeCache << {  
     configurations.compile.each { println it }
 }
+
+env:
+- TERM=dumb

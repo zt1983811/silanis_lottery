@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import lottery.entity.Winner;
+import lottery.service.lottery.LotteryService;
 import lottery.exception.DrawFinishedException;
 import lottery.exception.MinParticipantsNotReachException;
 import lottery.exception.NoAvailableSpotException;
@@ -31,7 +32,6 @@ public class LotteryServiceTest
         this.service = new LotteryService();
         this.output  = new Output();
         this.service.run();
-
     }
 
     @Test    

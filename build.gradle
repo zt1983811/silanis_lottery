@@ -4,16 +4,20 @@ buildscript {
         maven { url "https://oss.sonatype.org/content/groups/public" }
     }
     dependencies {
-        classpath 'net.saliman:gradle-cobertura-plugin:2.0.0'
+        classpath 'net.saliman:gradle-cobertura-plugin:2.2.5'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.1'
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'application'
-apply plugin: 'eclipse'
-apply plugin: 'com.github.kt3k.coveralls'
-apply plugin: 'cobertura'
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'application'
+    id 'net.saliman.cobertura' version '2.2.5'
+    id 'com.github.kt3k.coveralls' version '2.0.1'
+    id 'com.jfrog.bintray' version '0.5'
+}
+
 
 targetCompatibility = 1.8
 sourceCompatibility = 1.8

@@ -4,7 +4,7 @@ buildscript {
         maven { url "https://oss.sonatype.org/content/groups/public" }
     }
     dependencies {
-        classpath 'org.scoverage:gradle-scoverage:0.6-SNAPSHOT'
+        classpath 'net.saliman:gradle-cobertura-plugin:2.0.0'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.1'
     }
 }
@@ -13,6 +13,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'eclipse'
 apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'cobertura'
 
 targetCompatibility = 1.8
 sourceCompatibility = 1.8
@@ -51,3 +52,5 @@ test {
 task showMeCache << {  
     configurations.compile.each { println it }
 }
+
+cobertura.coverageFormats = ['html', 'xml']

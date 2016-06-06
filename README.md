@@ -46,8 +46,8 @@ Chris: 97.5$ Tom: 19.5$ Coke: 13.0$
 * In console type ```quit``` and hit enter key
 
 ###### Notice:
-* Minmum 3 participant take a part in before draw winners
-* Maxmum 50 participant allowed
+* Minmum 3 participants required before draw winners
+* Maxmum 50 participants allowed
 * Every draw inital pot is 200$, and total pot is depence on participant
 
 #### Generate Eclipse project:

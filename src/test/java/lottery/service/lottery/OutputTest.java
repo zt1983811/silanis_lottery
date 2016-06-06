@@ -27,11 +27,6 @@ public class OutputTest
         this.winners.add(2, new Winner(new Participant("Forget", 3), 11.5));       
     }
 
-    public static final String WINNNER_DRAW_FINISHED = "Winnber has been drawn";
-    public static final String NEW_DRAW_START        = "New draw has been start";
-    public static final String COMMAND_WAITING       = "Please enter commands [purchase, draw, winners, restart, quit]: ";
-    public static final String COMMAND_WAITING_NAME  = "Please enter first name: ";
-
     @Test    
     public void testOutputText() 
     {

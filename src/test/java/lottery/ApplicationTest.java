@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -33,11 +34,11 @@ public class ApplicationTest
         System.setOut(null);
         System.setErr(null);
     }
+
     @Test    
     public void testOutputText() 
     {
         try {
-
             ByteArrayInputStream in = new ByteArrayInputStream("quit\r\n".getBytes());
             System.setIn(in);
             Application.main(new String[]{});
@@ -48,4 +49,12 @@ public class ApplicationTest
             fail("Test failed by exception " + e.getMessage()); 
         }
     }
+
+    @Test    
+    public void testApplication() 
+    {
+        Application app = new Application();     
+        assertNotNull(app);
+    }
+
 }

@@ -26,5 +26,4 @@ public class WinnerTest
         assertEquals(winner.getPrize(), 5.99, DELTA);
     }
 
-
 }

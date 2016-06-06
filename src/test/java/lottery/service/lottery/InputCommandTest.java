@@ -1,17 +1,9 @@
 package lottery.service.lottery;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 
 public class InputCommandTest
 {
@@ -29,5 +21,12 @@ public class InputCommandTest
         } catch (AssertionError e) {
             fail("Test failed by exception " + e.getMessage()); 
         }
+    }
+
+    @Test    
+    public void testClass() 
+    {
+        InputCommand inputCommand = new InputCommand();     
+        assertNotNull(inputCommand);
     }
 }

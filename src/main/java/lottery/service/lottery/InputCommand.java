@@ -1,15 +1,42 @@
 package lottery.service.lottery;
 
+/**
+ * InputCommand Class
+ *
+ * Description: Define input command string
+ *
+ * @author Tong Zhou
+ */
 public class InputCommand 
 {
-    /** 
-     * Quit cmd 
+    /**
+     * {@value #COMMAND_TO_QUIT}
      */
     public static final String COMMAND_TO_QUIT            = "quit";
+
+    /**
+     * {@value #COMMAND_TO_RESTART}
+     */
     public static final String COMMAND_TO_RESTART         = "restart";
+
+    /**
+     * {@value #COMMAND_TO_PURCHASE}
+     */
     public static final String COMMAND_TO_PURCHASE        = "purchase";
+
+    /**
+     * {@value #COMMAND_DO_PURCHASE}
+     */
     public static final String COMMAND_DO_PURCHASE        = "do purchase";
+
+    /**
+     * {@value #COMMAND_TO_DRAW}
+     */
     public static final String COMMAND_TO_DRAW            = "draw";
+
+    /**
+     * {@value #COMMAND_TO_DISPLAY_WINNERS}
+     */
     public static final String COMMAND_TO_DISPLAY_WINNERS = "winners";
 
 }

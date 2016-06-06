@@ -1,9 +1,13 @@
 package lottery;
 
 import java.util.Scanner;
-
 import lottery.service.lottery.LotteryService;
 
+/**
+ * Application class
+ *
+ * @author Tong Zhou
+ */
 public class Application 
 {
 

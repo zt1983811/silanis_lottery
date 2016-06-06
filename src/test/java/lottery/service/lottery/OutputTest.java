@@ -36,7 +36,7 @@ public class OutputTest
         this.winners.add(2, new Winner(new Participant("Forget", 3), 11.5));       
     }
 
-    public static final String WINNBER_DRAW_FINISHED = "Winnber has been drawn";
+    public static final String WINNNER_DRAW_FINISHED = "Winnber has been drawn";
     public static final String NEW_DRAW_START        = "New draw has been start";
     public static final String COMMAND_WAITING       = "Please enter commands [purchase, draw, winners, restart, quit]: ";
     public static final String COMMAND_WAITING_NAME  = "Please enter first name: ";
@@ -45,7 +45,7 @@ public class OutputTest
     public void testOutputText() 
     {
         try {
-            assertEquals("Winnber has been drawn", Output.WINNBER_DRAW_FINISHED);
+            assertEquals("Winnber has been drawn", Output.WINNNER_DRAW_FINISHED);
             assertEquals("New draw has been start", Output.NEW_DRAW_START);
             assertEquals("Please enter commands [purchase, draw, winners, restart, quit]: ", Output.COMMAND_WAITING);
             assertEquals("Please enter first name: ", Output.COMMAND_WAITING_NAME);

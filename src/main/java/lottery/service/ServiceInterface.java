@@ -13,6 +13,8 @@ public interface ServiceInterface
     /**
      * Run the Service
      *
+     * @param scanner
+     *
      */
-	public void run(Scanner scanner);
+    public void run(Scanner scanner);
 }

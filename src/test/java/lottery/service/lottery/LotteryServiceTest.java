@@ -155,7 +155,7 @@ public class LotteryServiceTest
             service.processCommand(InputCommand.COMMAND_DO_PURCHASE, "Froze");
  
             String result = service.processCommand(InputCommand.COMMAND_TO_DRAW);
-            assertEquals(Output.WINNBER_DRAW_FINISHED, result);
+            assertEquals(Output.WINNNER_DRAW_FINISHED, result);
 
         } catch (AssertionError e) {
             fail("Test failed by exception " + e.getMessage()); 

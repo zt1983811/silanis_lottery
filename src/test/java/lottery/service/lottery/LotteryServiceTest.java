@@ -120,6 +120,30 @@ public class LotteryServiceTest
             fail("Test failed by exception " + e.getMessage()); 
         }
     }
+
+    @Test    
+    public void testDoPurchaseCommandWithdifferentCase() throws UnknowCommandExcpetion
+    {
+        try {
+            String result1 = service.processCommand("Do Purchase", "Chris");
+            String result2 = service.processCommand("dO pUrchAse", "Robert");
+            assertEquals(output.getDisplayPurchase(1), result1);
+            assertEquals(output.getDisplayPurchase(2), result2);
+
+        } catch (AssertionError e) {
+            fail("Test failed by exception " + e.getMessage()); 
+        }
+    }
+
+    @Test
+    public void testRestartCoammandWithDifferentCase() throws MinParticipantsNotReachException, DrawFinishedException, WinnerNotDrawnException, NoAvailableSpotException, UnknowCommandExcpetion    {
+        try {
+            String result = service.processCommand("ResTart");
+            assertEquals(result, Output.NEW_DRAW_START);
+        } catch (AssertionError e) {
+            fail("Test failed by exception " + e.getMessage()); 
+        }
+    }
     
     @Test
     public void testDrawWinnerCommand() throws MinParticipantsNotReachException, DrawFinishedException,

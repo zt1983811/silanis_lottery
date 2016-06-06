@@ -18,23 +18,23 @@ public class Output
     /**
      * {@value #WINNNER_DRAW_FINISHED}
      */
-    public static final String WINNNER_DRAW_FINISHED = "Winner has been drawn";
+    public final static String WINNNER_DRAW_FINISHED = "Winner has been drawn";
 
     /**
      * {@value #NEW_DRAW_START}
      */
-    public static final String NEW_DRAW_START        = "New draw has been start";
+    public final static String NEW_DRAW_START        = "New draw has been start";
 
     /**
      * {@value #COMMAND_WAITING}
      */
-    public static final String COMMAND_WAITING       = "Please enter commands [purchase, draw, winners, restart, quit]: ";
+    public final static String COMMAND_WAITING       = "Please enter commands [purchase, draw, winners, restart, quit]: ";
 
 
     /**
      * {@value #COMMAND_WAITING_NAME}
      */
-    public static final String COMMAND_WAITING_NAME  = "Please enter first name: ";
+    public final static String COMMAND_WAITING_NAME  = "Please enter first name: ";
 
     /**
      * get Display Purchase

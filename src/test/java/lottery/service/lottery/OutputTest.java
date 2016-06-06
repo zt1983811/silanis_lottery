@@ -97,6 +97,9 @@ public class OutputTest
     public void testOrdinal()
     {
         assertEquals("10th", output.ordinal(10));
+        assertEquals("11th", output.ordinal(11));
+        assertEquals("12th", output.ordinal(12));
+        assertEquals("13th", output.ordinal(13));
     }
     
 }

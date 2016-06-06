@@ -45,7 +45,7 @@ public class OutputTest
     public void testOutputText() 
     {
         try {
-            assertEquals("Winnber has been drawn", Output.WINNNER_DRAW_FINISHED);
+            assertEquals("Winner has been drawn", Output.WINNNER_DRAW_FINISHED);
             assertEquals("New draw has been start", Output.NEW_DRAW_START);
             assertEquals("Please enter commands [purchase, draw, winners, restart, quit]: ", Output.COMMAND_WAITING);
             assertEquals("Please enter first name: ", Output.COMMAND_WAITING_NAME);

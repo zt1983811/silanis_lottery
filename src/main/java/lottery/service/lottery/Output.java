@@ -18,7 +18,7 @@ public class Output
     /**
      * {@value #WINNNER_DRAW_FINISHED}
      */
-    public static final String WINNNER_DRAW_FINISHED = "Winnber has been drawn";
+    public static final String WINNNER_DRAW_FINISHED = "Winner has been drawn";
 
     /**
      * {@value #NEW_DRAW_START}

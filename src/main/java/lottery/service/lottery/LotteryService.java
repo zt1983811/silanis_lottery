@@ -32,40 +32,34 @@ public class LotteryService implements ServiceInterface
     private int drawIndex;
     private int ballNumber;
     private Output output = new Output();
-    private Scanner scanner = new Scanner(System.in);
     
     @Override
-    public void run()
+    public void run(Scanner scanner)
     {
         String command = "";
         System.out.print(Output.COMMAND_WAITING);
         initDraw();
 
-        while (this.scanner.hasNextLine()) {
-
+        while (scanner.hasNextLine()) {
             command = scanner.nextLine();
+
             if (command.equalsIgnoreCase(InputCommand.COMMAND_TO_QUIT)) {
                 break;
             }
 
             try {
-
                 System.out.println(processCommand(command));
-
                 if (command.equalsIgnoreCase(InputCommand.COMMAND_TO_PURCHASE)) {
-                    String firstName = getPurchanseFirstName();
+                    String firstName = getPurchanseFirstName(scanner);
                     System.out.println(processCommand(InputCommand.COMMAND_DO_PURCHASE, firstName));
                 }
 
             } catch (BaseException e) {
-                
                 System.err.println(e.getMessage());
             }
 
             System.out.print("\n" + Output.COMMAND_WAITING);
         }
-
-        this.scanner.close();
     }
 
     public String processCommand(String command, String firstName) throws UnknowCommandExcpetion
@@ -104,10 +98,10 @@ public class LotteryService implements ServiceInterface
         throw new UnknowCommandExcpetion("Unknow command");
     }
 
-    private String getPurchanseFirstName()
+    private String getPurchanseFirstName(Scanner scanner)
     {
         System.out.print(Output.COMMAND_WAITING_NAME);
-        String firstName =  this.scanner.nextLine();
+        String firstName = scanner.nextLine();
         return firstName;
     }
     

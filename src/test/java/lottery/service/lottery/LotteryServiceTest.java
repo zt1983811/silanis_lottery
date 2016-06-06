@@ -1,10 +1,13 @@
 package lottery.service.lottery;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.List;
+import java.util.Scanner;
 
 import org.junit.After;
 import org.junit.Before;
@@ -25,14 +28,56 @@ public class LotteryServiceTest
 {
     private LotteryService service;
     private Output output;
+    private Scanner scanner;
+    private final ByteArrayOutputStream outContent =  new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errContent =  new ByteArrayOutputStream();
 
     @Before
     public void setUp() 
     {
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
         this.service = new LotteryService();
         this.output  = new Output();
-        this.service.run();
+        this.scanner = new Scanner(System.in);
+        this.service.run(scanner);
     }
+
+    @After
+    public void cleanUpStreams() 
+    {
+        System.setOut(null);
+        System.setErr(null);
+    }
+
+    @Test
+    public void testRunPurchaseCmd()
+    {
+        assertEquals(Output.COMMAND_WAITING, outContent.toString());
+        ByteArrayInputStream in = new ByteArrayInputStream("purchase\r\nChris\r\n".getBytes());
+        System.setIn(in);
+        Scanner scanner = new Scanner(System.in);
+        this.service.run(scanner);
+        assertEquals(Output.COMMAND_WAITING + Output.COMMAND_WAITING + "\n" + 
+                Output.COMMAND_WAITING_NAME + 
+                "Thanks for you purchase, your ball number is: 1" + "\n\n" + Output.COMMAND_WAITING, 
+                outContent.toString());
+        System.setIn(in);
+    }
+
+    @Test
+    public void testRunUnknowCommandExcpetion()
+    {
+        assertEquals(Output.COMMAND_WAITING, outContent.toString());
+        ByteArrayInputStream in = new ByteArrayInputStream("Unkown Command\r\n".getBytes());
+        System.setIn(in);
+        Scanner scanner = new Scanner(System.in);
+        this.service.run(scanner);
+        assertEquals(Output.COMMAND_WAITING + Output.COMMAND_WAITING + "\n" + Output.COMMAND_WAITING, outContent.toString());
+        assertEquals("Unknow command\n", errContent.toString());
+        System.setIn(in);
+    }
+
 
     @Test    
     public void testPurchaseCommand() throws MinParticipantsNotReachException, DrawFinishedException,
@@ -176,4 +221,5 @@ public class LotteryServiceTest
             assertEquals("Unknow command", e.getMessage());
         }
     }
+
 }

@@ -1,5 +1,6 @@
 package lottery.service;
 
+import java.util.Scanner;
 
 /**
  *
@@ -13,5 +14,5 @@ public interface ServiceInterface
      * Run the Service
      *
      */
-    public void run();
+	public void run(Scanner scanner);
 }

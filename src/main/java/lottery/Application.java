@@ -1,5 +1,7 @@
 package lottery;
 
+import java.util.Scanner;
+
 import lottery.service.lottery.LotteryService;
 
 public class Application 
@@ -14,7 +16,9 @@ public class Application
     public static <T> void main(String[] args)
     {
         LotteryService lotteryService = new LotteryService();
-        lotteryService.run();
+        Scanner scanner = new Scanner(System.in);
+        lotteryService.run(scanner);
+        scanner.close();
        
     }
 }

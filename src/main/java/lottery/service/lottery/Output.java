@@ -44,7 +44,7 @@ public class Output
             .collect(joining(" "));
     }
 
-    private String ordinal(int number) 
+    protected String ordinal(int number) 
     {
         String[] sufixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
         switch (number % 100) {

@@ -92,4 +92,11 @@ public class OutputTest
             assertEquals(response, e.getMessage());
         }
     }
+
+    @Test    
+    public void testOrdinal()
+    {
+        assertEquals("10th", output.ordinal(10));
+    }
+    
 }

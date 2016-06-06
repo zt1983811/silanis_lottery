@@ -66,6 +66,18 @@ public class LotteryServiceTest
     }
 
     @Test
+    public void testRunQuitCmd()
+    {
+        assertEquals(Output.COMMAND_WAITING, outContent.toString());
+        ByteArrayInputStream in = new ByteArrayInputStream("quit\r\n".getBytes());
+        System.setIn(in);
+        Scanner scanner = new Scanner(System.in);
+        this.service.run(scanner);
+        assertEquals(Output.COMMAND_WAITING + Output.COMMAND_WAITING, outContent.toString());
+        System.setIn(in);
+    }
+
+    @Test
     public void testRunUnknowCommandExcpetion()
     {
         assertEquals(Output.COMMAND_WAITING, outContent.toString());
@@ -169,7 +181,7 @@ public class LotteryServiceTest
     }
 
     @Test
-    public void testDrawFinishedException() throws UnknowCommandExcpetion, MinParticipantsNotReachException, WinnerNotDrawnException, NoAvailableSpotException {
+    public void testDrawFinishedExceptionFromDrawAgain() throws UnknowCommandExcpetion, MinParticipantsNotReachException, WinnerNotDrawnException, NoAvailableSpotException {
         try {        
             service.processCommand(InputCommand.COMMAND_DO_PURCHASE, "Chris");
             service.processCommand(InputCommand.COMMAND_DO_PURCHASE, "Robert");
@@ -177,6 +189,21 @@ public class LotteryServiceTest
             service.processCommand(InputCommand.COMMAND_DO_PURCHASE, "Froze");
             service.processCommand(InputCommand.COMMAND_TO_DRAW);
             service.processCommand(InputCommand.COMMAND_TO_DRAW);
+
+        } catch (DrawFinishedException e) {
+            assertEquals("Lottery has been drawn, no purcahse is allowed", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testDrawFinishedExceptionFromPurchase() throws UnknowCommandExcpetion, MinParticipantsNotReachException, WinnerNotDrawnException, NoAvailableSpotException {
+        try {        
+            service.processCommand(InputCommand.COMMAND_DO_PURCHASE, "Chris");
+            service.processCommand(InputCommand.COMMAND_DO_PURCHASE, "Robert");
+            service.processCommand(InputCommand.COMMAND_DO_PURCHASE, "Tomaz");
+            service.processCommand(InputCommand.COMMAND_DO_PURCHASE, "Froze");
+            service.processCommand(InputCommand.COMMAND_TO_DRAW);
+            service.processCommand(InputCommand.COMMAND_TO_PURCHASE);
 
         } catch (DrawFinishedException e) {
             assertEquals("Lottery has been drawn, no purcahse is allowed", e.getMessage());
@@ -216,6 +243,17 @@ public class LotteryServiceTest
     {
         try {        
             service.processCommand("Unknow command");
+
+        } catch (UnknowCommandExcpetion e) {
+            assertEquals("Unknow command", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUnknowCommandExcpetion2() throws MinParticipantsNotReachException, DrawFinishedException, NoAvailableSpotException, WinnerNotDrawnException
+    {
+        try {        
+            service.processCommand("Unknow command", "Chris");
 
         } catch (UnknowCommandExcpetion e) {
             assertEquals("Unknow command", e.getMessage());

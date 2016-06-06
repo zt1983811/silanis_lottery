@@ -14,7 +14,7 @@ jdk:
     - oraclejdk8
 
 script:
-    - ./gradlew assemble 
+#    - ./gradlew assemble 
     - ./gradlew test
 
 after_success:

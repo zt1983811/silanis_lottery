@@ -6,7 +6,7 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/57557c0f7757a0004a1de08f/badge.svg?style=flat)](https://www.versioneye.com/user/projects/57557c0f7757a0004a1de08f)
 
 #### Description: 
-Lottery machine follow this [requirment](../blob/master/REQUIRMENT.md)
+Lottery machine follow this [requirment](../master/REQUIRMENT.md)
 
 #### System Requirment:
 Project require Java 8

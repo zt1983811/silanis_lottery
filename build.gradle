@@ -12,6 +12,7 @@ plugins {
     id 'com.github.kt3k.coveralls' version '2.6.3'
     id 'com.jfrog.bintray' version '0.5'
     id 'jacoco'
+    id "org.standardout.versioneye" version "1.4.0"
 }
 
 jacocoTestReport {

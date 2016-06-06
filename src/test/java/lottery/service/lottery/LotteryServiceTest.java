@@ -28,7 +28,6 @@ public class LotteryServiceTest
 {
     private LotteryService service;
     private Output output;
-    private Scanner scanner;
     private final ByteArrayOutputStream outContent =  new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent =  new ByteArrayOutputStream();
 
@@ -39,7 +38,7 @@ public class LotteryServiceTest
         System.setErr(new PrintStream(errContent));
         this.service = new LotteryService();
         this.output  = new Output();
-        this.scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         this.service.run(scanner);
     }
 

@@ -8,8 +8,6 @@
  */
 package lottery.entity;
 
-import java.math.BigDecimal;
-
 /** 
  * Participant entity 
  *

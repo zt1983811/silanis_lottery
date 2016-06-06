@@ -151,6 +151,9 @@ public class LotteryService implements ServiceInterface
 
             case InputCommand.COMMAND_TO_DISPLAY_WINNERS:
                 return output.getDisplayWinners(this.winners);
+
+            default:
+                break;
         }
 
         throw new UnknowCommandExcpetion("Unknow command");
@@ -172,6 +175,9 @@ public class LotteryService implements ServiceInterface
             case InputCommand.COMMAND_DO_PURCHASE: 
                 purchaseDraw(firstName);
                 return output.getDisplayPurchase(this.ballNumber - 1);
+
+            default:
+                break;
         }
 
         throw new UnknowCommandExcpetion("Unknow command");

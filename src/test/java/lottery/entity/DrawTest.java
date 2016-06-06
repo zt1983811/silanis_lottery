@@ -1,18 +1,13 @@
 package lottery.entity;
 
-import org.junit.After;
 import org.junit.Before;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;

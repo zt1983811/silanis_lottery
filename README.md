@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/zt1983811/silanis_lottery.svg?branch=master)](https://travis-ci.org/zt1983811/silanis_lottery)
 [![Coverage Status](https://coveralls.io/repos/github/zt1983811/silanis_lottery/badge.svg?branch=master)](https://coveralls.io/github/zt1983811/silanis_lottery?branch=master)
 [![codecov](https://codecov.io/gh/zt1983811/silanis_lottery/branch/master/graph/badge.svg)](https://codecov.io/gh/zt1983811/silanis_lottery)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/379f952086914b5398c5ce8fbca6e99a)](https://www.codacy.com/app/zt1983811/silanis_lottery?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zt1983811/silanis_lottery&amp;utm_campaign=Badge_Grade)
 [![Dependency Status](https://www.versioneye.com/user/projects/57557c0f7757a0004a1de08f/badge.svg?style=flat)](https://www.versioneye.com/user/projects/57557c0f7757a0004a1de08f)
 
 #### Description: 

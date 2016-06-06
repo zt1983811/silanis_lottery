@@ -1,25 +1,16 @@
 package lottery.service.lottery;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 
 import lottery.entity.Participant;
 import lottery.entity.Winner;
-import lottery.service.lottery.LotteryService;
-import lottery.exception.DrawFinishedException;
-import lottery.exception.MinParticipantsNotReachException;
-import lottery.exception.NoAvailableSpotException;
-import lottery.exception.UnknowCommandExcpetion;
 import lottery.exception.WinnerNotDrawnException;
 
 public class OutputTest

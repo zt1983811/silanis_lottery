@@ -29,7 +29,7 @@ version = '1.0'
 mainClassName = 'lottery.Application'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.4' 
+    gradleVersion = '2.13' 
 }
 
 

@@ -107,10 +107,7 @@ public class LotteryService implements ServiceInterface
 
             try {
                 System.out.println(processCommand(command));
-                if (command.equalsIgnoreCase(InputCommand.COMMAND_TO_PURCHASE)) {
-                    String firstName = getPurchanseFirstName(scanner);
-                    System.out.println(processCommand(InputCommand.COMMAND_DO_PURCHASE, firstName));
-                }
+                doPurchaseStepHandler(command, scanner);
 
             } catch (BaseException e) {
                 System.err.println(e.getMessage());
@@ -153,10 +150,8 @@ public class LotteryService implements ServiceInterface
                 return output.getDisplayWinners(this.winners);
 
             default:
-                break;
+                throw new UnknowCommandExcpetion("Unknow command");
         }
-
-        throw new UnknowCommandExcpetion("Unknow command");
     }
 
     /**
@@ -177,10 +172,25 @@ public class LotteryService implements ServiceInterface
                 return output.getDisplayPurchase(this.ballNumber - 1);
 
             default:
-                break;
+                throw new UnknowCommandExcpetion("Unknow command");
         }
 
-        throw new UnknowCommandExcpetion("Unknow command");
+    }
+
+    /**
+     * Do puchase handler step
+     *
+     * @param previousCommand
+     * @param scanner
+     *
+     * @throws UnknowCommandExcpetion
+     */
+    private void doPurchaseStepHandler(String previousCommand, Scanner scanner) throws UnknowCommandExcpetion
+      {
+        if (previousCommand.equalsIgnoreCase(InputCommand.COMMAND_TO_PURCHASE)) {
+            String firstName = getPurchanseFirstName(scanner);
+            System.out.println(processCommand(InputCommand.COMMAND_DO_PURCHASE, firstName));
+        }
     }
 
     /**
@@ -242,6 +252,18 @@ public class LotteryService implements ServiceInterface
     }
 
     /**
+     * Check if min participants are reached
+     *
+     * @param participants
+     * @param winners
+     * @return
+     */
+    private boolean isMinParticipantsReached(List<Participant> participants, List<Winner> winners)
+    {
+        return (participants.size() < MIN_PARTICIPANTS && winners.isEmpty());
+    }
+
+    /**
      *
      * Draw the winner in current round
      *
@@ -250,7 +272,7 @@ public class LotteryService implements ServiceInterface
      */
     private void drawWinner() throws MinParticipantsNotReachException, DrawFinishedException
     {
-        if (this.participants.size() < MIN_PARTICIPANTS && this.winners.isEmpty()) {
+        if (isMinParticipantsReached(this.participants, this.winners)) {
             throw new MinParticipantsNotReachException("Minimum participants not reach");
         }
 

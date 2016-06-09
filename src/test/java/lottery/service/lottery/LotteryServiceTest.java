@@ -165,7 +165,6 @@ public class LotteryServiceTest
     public void testDisplayWinnersCommand() throws MinParticipantsNotReachException, DrawFinishedException,
             WinnerNotDrawnException, NoAvailableSpotException, UnknowCommandExcpetion    {
         try {
-
             service.processCommand(InputCommand.COMMAND_DO_PURCHASE, "Chris");
             service.processCommand(InputCommand.COMMAND_DO_PURCHASE, "Robert");
             service.processCommand(InputCommand.COMMAND_DO_PURCHASE, "Tomaz");
@@ -173,7 +172,7 @@ public class LotteryServiceTest
             service.processCommand(InputCommand.COMMAND_TO_DRAW);
 
             String result        = service.processCommand(InputCommand.COMMAND_TO_DISPLAY_WINNERS);
-            List<Winner> winners = service.getWinners();
+            List<Winner> winners = service.getDraw().getWinners();
             String winnersOutput = output.getDisplayWinners(winners);
             assertEquals(result, winnersOutput);
 
@@ -251,7 +250,7 @@ public class LotteryServiceTest
     {
         try {
             int counter = 0;
-            while (counter <= service.getMaxParticipants()) {
+            while (counter <= Rules.MAX_PARTICIPANTS) {
                 service.processCommand(InputCommand.COMMAND_DO_PURCHASE, "Tomaz");
                 counter++;
             }

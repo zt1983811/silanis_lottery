@@ -25,61 +25,10 @@ import lottery.service.ServiceInterface;
  */
 public class LotteryService implements ServiceInterface
 {
-
-    /**
-     * {@value #INIT_POT}
-     */
-    private final static int INIT_POT            = 200;
-
-    /**
-     * {@value #MAX_PARTICIPANTS}
-     */
-    private final static int MAX_PARTICIPANTS    = 50;
-
-    /**
-     * {@value #MIN_PARTICIPANTS}
-     */
-    private final static int MIN_PARTICIPANTS    = 3;
-
-    /**
-     * {@value #NUMBER_OF_WINNERS}
-     */
-    private final static int NUMBER_OF_WINNERS   = 3;
-
-    /**
-     * {@value #PRICE_FOR_EACH_BALL}
-     */
-    private final static int PRICE_FOR_EACH_BALL = 10;
-
-    /**
-     * {@value #PRIZE_RATE}
-     */   
-    private final static double[] PRIZE_RATE = new double[] { 0.75, 0.15, 0.10 };
-
     /**
      * {@value #draw}
      */
     private Draw draw;
-
-    /**
-     * {@value #participants}
-     */
-    private List<Participant> participants = new ArrayList<Participant>();
-
-    /**
-     * {@value #winners}
-     */
-    private List<Winner> winners = new ArrayList<Winner>();
-
-    /**
-     * {@value #drawIndex}
-     */
-    private int drawIndex;
-
-    /**
-     * {@value #ballNumber}
-     */
-    private int ballNumber;
 
     /**
      * {@value #output}
@@ -147,7 +96,7 @@ public class LotteryService implements ServiceInterface
                 return Output.WINNNER_DRAW_FINISHED;
 
             case InputCommand.COMMAND_TO_DISPLAY_WINNERS:
-                return output.getDisplayWinners(this.winners);
+                return output.getDisplayWinners(this.draw.getWinners());
 
             default:
                 throw new UnknowCommandExcpetion("Unknow command");
@@ -169,7 +118,8 @@ public class LotteryService implements ServiceInterface
 
             case InputCommand.COMMAND_DO_PURCHASE: 
                 purchaseDraw(firstName);
-                return output.getDisplayPurchase(this.ballNumber - 1);
+                int currentBallNumber = getBallNumberByDrawIndex(this.draw.getParticipants().size()) - 1;
+                return output.getDisplayPurchase(currentBallNumber);
 
             default:
                 throw new UnknowCommandExcpetion("Unknow command");
@@ -212,11 +162,9 @@ public class LotteryService implements ServiceInterface
      */
     private void initDraw()
     {
-        this.winners.clear();
-        this.participants.clear();
-        this.drawIndex = 0;
-        this.ballNumber = 1;
-        this.draw = new Draw(INIT_POT, PRICE_FOR_EACH_BALL, this.participants, this.winners);
+        List<Participant> participants = new ArrayList<Participant>();
+        List<Winner> winners = new ArrayList<Winner>();
+        this.draw = new Draw(Rules.INIT_POT, Rules.PRICE_FOR_EACH_BALL, participants, winners);
     }
 
     /**
@@ -228,11 +176,11 @@ public class LotteryService implements ServiceInterface
      */
     private void preparePurchaseDraw() throws NoAvailableSpotException, DrawFinishedException
     {
-        if (drawIndex >= MAX_PARTICIPANTS) {
+        if (this.draw.getParticipants().size() >= Rules.MAX_PARTICIPANTS) {
             throw new NoAvailableSpotException("No available spot in this draw");
         }
 
-        if (!this.winners.isEmpty()) {
+        if (!this.draw.getWinners().isEmpty()) {
             throw new DrawFinishedException("Lottery has been drawn, no purcahse is allowed");
         }
     }
@@ -244,11 +192,24 @@ public class LotteryService implements ServiceInterface
      */
     private void purchaseDraw(String firstName)
     {
-        Participant participant = new Participant(firstName, this.ballNumber);
-        this.participants.add(this.drawIndex, participant);
-        this.draw.setPot(this.draw.getPot() + PRICE_FOR_EACH_BALL);
-        this.drawIndex++;
-        this.ballNumber++;
+        int currentParticipantIndex    = this.draw.getParticipants().size();
+        int ballNumber                 = getBallNumberByDrawIndex(currentParticipantIndex);
+        List<Participant> participants = this.draw.getParticipants();
+        Participant participant        = new Participant(firstName, ballNumber);
+        participants.add(currentParticipantIndex, participant);
+        this.draw.setParticipants(participants);
+        this.draw.setPot(this.draw.getPot() + Rules.PRICE_FOR_EACH_BALL);
+    }
+
+    /**
+     * Return ball number by draw index for uniqueness
+     *
+     * @param drawIndex
+     * @return
+     */
+    private int getBallNumberByDrawIndex(int drawIndex) 
+    {
+        return drawIndex + 1;
     }
 
     /**
@@ -260,7 +221,7 @@ public class LotteryService implements ServiceInterface
      */
     private boolean isMinParticipantsReached(List<Participant> participants, List<Winner> winners)
     {
-        return (participants.size() < MIN_PARTICIPANTS && winners.isEmpty());
+        return (participants.size() < Rules.MIN_PARTICIPANTS && winners.isEmpty());
     }
 
     /**
@@ -272,41 +233,48 @@ public class LotteryService implements ServiceInterface
      */
     private void drawWinner() throws MinParticipantsNotReachException, DrawFinishedException
     {
-        if (isMinParticipantsReached(this.participants, this.winners)) {
+        if (isMinParticipantsReached(this.draw.getParticipants(), this.draw.getWinners())) {
             throw new MinParticipantsNotReachException("Minimum participants not reach");
         }
 
-        if (!this.winners.isEmpty()) {
+        if (!this.draw.getWinners().isEmpty()) {
             throw new DrawFinishedException("Lottery has been drawn, no purcahse is allowed");
         }
 
-        int prizeCounter = 0;
-        while (this.winners.size() < NUMBER_OF_WINNERS)
+        List<Participant> participants = this.draw.getParticipants();
+        this.draw.setWinners(getRandomWinnersByParticipants(participants));
+    }
+
+    /**
+     * Return random winners from participant
+     *
+     * @param participants
+     * @return List<Winner> winners
+     */
+    private List<Winner> getRandomWinnersByParticipants(List<Participant> participants)
+    {
+        int prizeCounter     = 0;
+        List<Winner> winners = new ArrayList<Winner>();
+
+        while (winners.size() < Rules.NUMBER_OF_WINNERS)
         {
-            Collections.shuffle(this.participants);
-            double prize  = this.draw.getPot() / 2 * PRIZE_RATE[prizeCounter];
+            Collections.shuffle(participants);
+            double prize  = this.draw.getPot() / 2 * Rules.PRIZE_RATE[prizeCounter];
             Winner winner = new Winner(participants.get(0), prize);
-            this.winners.add(prizeCounter, winner);
-            this.participants.remove(0);
+            winners.add(prizeCounter, winner);
+            participants.remove(0);
             prizeCounter++;
-        }
-    }
+        }   
 
-    /**
-     *
-     * @return the maxParticipants
-     */
-    public static int getMaxParticipants() 
-    {
-        return MAX_PARTICIPANTS;
-    }
-
-    /**
-     *
-     * @return the winners
-     */
-    public List<Winner> getWinners() 
-    {
         return winners;
+    }
+
+    /**
+     *
+     * @return the draw
+     */
+    public Draw getDraw() 
+    {
+        return this.draw;
     }
 }
